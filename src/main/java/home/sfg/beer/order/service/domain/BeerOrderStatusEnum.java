@@ -1,0 +1,6 @@
+package home.sfg.beer.order.service.domain;
+
+public enum BeerOrderStatusEnum {
+  NEW, VALIDATED, VALIDATION_EXCEPTION, ALLOCATED, ALLOCATED_EXCEPTION,
+  PENDING_INVENTORY, PICKED_UP, DELIVERED, DELIVERED_EXCEPTION
+}
