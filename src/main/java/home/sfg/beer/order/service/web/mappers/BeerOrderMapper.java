@@ -1,7 +1,7 @@
 package home.sfg.beer.order.service.web.mappers;
 
 import home.sfg.beer.order.service.domain.BeerOrder;
-import home.sfg.beer.order.service.web.model.BeerOrderDto;
+import home.sfg.brewery.model.BeerOrderDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
