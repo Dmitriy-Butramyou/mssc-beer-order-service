@@ -11,9 +11,11 @@ public interface BeerOrderManager {
 
   void processValidationResult(UUID beerOrderId, Boolean isValid);
 
-    void beerOrderAllocationPassed(BeerOrderDto beerOrder);
+  void beerOrderAllocationPassed(BeerOrderDto beerOrder);
 
-    void beerOrderAllocationPendingInventory(BeerOrderDto beerOrder);
+  void beerOrderAllocationPendingInventory(BeerOrderDto beerOrder);
 
-    void beerOrderAllocationFailed(BeerOrderDto beerOrder);
+  void beerOrderAllocationFailed(BeerOrderDto beerOrder);
+
+  void beerOrderPickedUp(UUID id);
 }
