@@ -1,8 +1,8 @@
 package home.sfg.beer.order.service.services.testcomponets;
 
 import home.sfg.beer.order.service.config.JmsConfig;
+import home.sfg.brewery.model.events.ValidateOrderRequest;
 import home.sfg.brewery.model.events.ValidateOrderResult;
-import home.sfg.brewery.model.events.ValidationOrderRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
@@ -17,9 +17,11 @@ public class BeerOrderValidationListener {
     private final JmsTemplate jmsTemplate;
 
     @JmsListener(destination = JmsConfig.VALIDATE_ORDER_QUEUE)
-    public void list(Message msg) {
+    public void listen(Message msg) {
 
-        ValidationOrderRequest request = (ValidationOrderRequest) msg.getPayload();
+        ValidateOrderRequest request = (ValidateOrderRequest) msg.getPayload();
+
+        System.out.println("########### I RAN ########");
 
         jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE,
                 ValidateOrderResult.builder()

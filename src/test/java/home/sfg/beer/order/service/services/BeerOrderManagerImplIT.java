@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(WireMockExtension.class)
 @SpringBootTest
-public class BeerOrderManagerImplTestIT {
+public class BeerOrderManagerImplIT {
 
     @Autowired
     BeerOrderManager beerOrderManager;
@@ -43,13 +43,13 @@ public class BeerOrderManagerImplTestIT {
     BeerOrderRepository beerOrderRepository;
 
     @Autowired
+    CustomerRepository customerRepository;
+
+    @Autowired
     ObjectMapper objectMapper;
 
     @Autowired
     WireMockServer wireMockServer;
-
-    @Autowired
-    CustomerRepository customerRepository;
 
     Customer testCustomer;
 
@@ -86,14 +86,22 @@ public class BeerOrderManagerImplTestIT {
         await().untilAsserted(() -> {
             BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
 
-            //todo - ALLOCATED STATUS
-            assertEquals(BeerOrderStatusEnum.ALLOCATION_PENDING, foundOrder.getOrderStatus());
+            assertEquals(BeerOrderStatusEnum.ALLOCATED, foundOrder.getOrderStatus());
+        });
+
+        await().untilAsserted(() -> {
+            BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
+            BeerOrderLine line = foundOrder.getBeerOrderLines().iterator().next();
+            assertEquals(line.getOrderQuantity(), line.getQuantityAllocated());
         });
 
         BeerOrder savedBeerOrder2 = beerOrderRepository.findById(savedBeerOrder.getId()).get();
 
-        assertNotNull(savedBeerOrder);
+        assertNotNull(savedBeerOrder2);
         assertEquals(BeerOrderStatusEnum.ALLOCATED, savedBeerOrder2.getOrderStatus());
+        savedBeerOrder2.getBeerOrderLines().forEach(line -> {
+            assertEquals(line.getOrderQuantity(), line.getQuantityAllocated());
+        });
     }
 
     public BeerOrder createBeerOrder() {

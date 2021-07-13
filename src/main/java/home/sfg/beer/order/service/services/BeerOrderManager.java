@@ -9,11 +9,11 @@ public interface BeerOrderManager {
 
   BeerOrder newBeerOrder(BeerOrder beerOrder);
 
-  void processValidationResult(UUID beerOrderId, boolean isValid);
+  void processValidationResult(UUID beerOrderId, Boolean isValid);
 
-  void beerOrderAllocationPassed(BeerOrderDto beerOrderDto);
+    void beerOrderAllocationPassed(BeerOrderDto beerOrder);
 
-  void beerOrderAllocationPendingInventory(BeerOrderDto beerOrderDto);
+    void beerOrderAllocationPendingInventory(BeerOrderDto beerOrder);
 
-  void beerOrderAllocationFailed(BeerOrderDto beerOrderDto);
+    void beerOrderAllocationFailed(BeerOrderDto beerOrder);
 }
